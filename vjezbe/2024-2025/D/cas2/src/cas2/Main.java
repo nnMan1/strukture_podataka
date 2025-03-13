@@ -180,13 +180,58 @@ public class Main {
 		return true;
 	}
 	
+	/*
+	 * 11. Napisati funkciju void filtar(int[][] slika, int k) koja nad datom 
+	 * slikom, koja je predstavljena matricom prirodnih brojeva dimenzija 
+	 * mxn (m>=k, n>=k), primjenjuje filtar veličine kxk i štampa rezultujuću 
+	 * sliku odnosno matricu. Filter se primjenjuje tako što se pomjera po 
+	 * matrici slika i računa se prosječna vrijednost elemenata matrice koje 
+	 * filter preklopi.
+	 */
+	
+	public static void filtar(int[][] slika, int k) {
+		int n = slika.length;
+		int m = slika[0].length;
+		int[][] rez = new int[n - k + 1][m - k + 1];
+		
+		for(int x = 0;x<n-k+1;x++) 
+			for(int y=0;y<m-k+1;y++) {
+				int s = 0;
+				for(int i=0;i<k;i++)
+					for(int j=0;j<k;j++)
+						s += slika[x + i][y + j];
+				
+				rez[x][y] = s / (k * k);
+			}
+		
+		stampajMatricu(rez);
+	}
+	
+	public static int zbir_elemenata(int[] arr) {
+		int s = 0;
+		for(int i=0;i<arr.length;i++)
+			s += arr[i];
+		
+		return s;
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Scanner in = new Scanner(System.in);
 		
 		int n = in.nextInt();
 		int m = in.nextInt();
+//		int k = in.nextInt();
 		int[][] matr = new int[n][m];
+//		
+//		ucitajMatricu(matr);
+//		filtar(matr, k);
+		
+		popuniMatricu(matr);
+		stampajMatricu(matr);
+		
+		for(int i=0;i<matr.length;i++)
+			System.out.println(zbir_elemenata(matr[i]));
 		
 //		ucitajMatricu(matr);
 //		System.out.println("Broj vojnika na granici je: "+odbranaKraljevstva(matr));
@@ -195,9 +240,9 @@ public class Main {
 //		for(int i=0;i<5;i++)
 //			matr2[i] = new int[i+1];
 		
-		popuniMatricu(matr);
-		stampajMatricu(matr);
-		System.out.println();
+//		popuniMatricu(matr);
+//		stampajMatricu(matr);
+//		System.out.println();
 //						
 //		System.out.println("Zbir elemenata matrice je: "+zbirElemenata(matr));
 //		System.out.println("Zbir elemenata glavne dij je: "+zbirGlvneDijagonale(matr));
@@ -220,8 +265,8 @@ public class Main {
 //		matr[1][3] = 4;
 //		matr[-7][3] = 9;
 		
-		System.out.println("Lokalni maksimumi su: ");
-		lokalniMaksimumi(matr);
+//		System.out.println("Lokalni maksimumi su: ");
+//		lokalniMaksimumi(matr);
 		
 		
 	}
