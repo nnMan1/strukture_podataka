@@ -145,6 +145,38 @@ public class Main {
 		}
 	}
 	
+	/*
+	 * Napisati funkciju void filtar(int[][] slika, int k) koja nad datom slikom, 
+	 * koja je predstavljena matricom prirodnih brojeva dimenzija mxn (m>=k, n>=k), 
+	 * primjenjuje filtar veličine kxk i štampa rezultujuću sliku odnosno matricu. 
+	 * Filter se primjenjuje tako što se pomjera po matrici slika i 
+	 * računa se prosječna vrijednost elemenata matrice koje filter preklopi.
+	 */
+	
+	public static void filtar(int[][] slika, int k) {
+		for(int x=0;x<=slika.length-k;x++) {
+			for(int y=0;y<=slika[0].length-k;y++) {
+				int sum = 0;
+				
+				for(int i=0;i<k;i++)
+					for(int j=0;j<k;j++)
+						sum += slika[x + i][y + j];
+				
+				System.out.print(sum / (k * k)+" ");
+			}
+			System.out.println();
+		}
+						
+	}
+	
+	public static int zbir_elemenata(int[] arr) {
+		int sum = 0;
+		for(int i=0;i<arr.length;i++)
+			sum += arr[i];
+		
+		return sum;
+	}
+	
 	public static void main(String[] args) {
 		
 		in = new Scanner(System.in);
@@ -152,11 +184,16 @@ public class Main {
 		// TODO Auto-generated method stub
 		int n = in.nextInt();
 		int m = in.nextInt();
+//		int k = in.nextInt();
 		int[][] matr = new int[n][m];
 		
 		popuniMatricu2(matr);
 //		ucitajMatricu(matr);
+//		filtar(matr, k);
 		stampajMatricu(matr);
+		for(int i=0;i<matr.length;i++)
+			System.out.println(zbir_elemenata(matr[i]));
+		
 //		System.out.println(toplicova2(matr) ? "DA" : "NE");
 		
 //		lokalni_maksimum(matr);
