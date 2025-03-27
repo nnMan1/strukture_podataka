@@ -133,9 +133,59 @@ public class Main {
 			System.out.println(oper[i]+" 1");
 	}
 	
+	/*
+	 * 8. Napisati progam koji izraz zadat u infiksnoj notaciji
+	 * pretvara u postfiksnu notaciju
+	 */
+	
+	public static int priority(char c) {
+		if(c == '*' || c == '/')
+			return 2;
+		if(c == '+' || c == '-')
+			return 1;
+		return 0;
+	}
+	
+	public static void infixToPostfix(String expr) {
+		Stack<Character> s = new Stack<>();
+		
+		for(int i=0;i<expr.length();i++) {
+			char c = expr.charAt(i);
+			
+			if('0' <= c && c <= '9') {
+				System.out.print(c);
+				continue;
+			}
+			
+			if(c == '(') {
+				s.push(c);
+				continue;
+			}
+			
+			while(!s.empty() && priority(s.peek()) >= priority(c))
+				if(s.peek() == '(') {
+					s.pop();
+					break;
+				}
+				else
+					System.out.print(" "+s.pop());
+			
+			if(c != ')') {
+				s.push(c);
+				System.out.print(" ");
+			}
+		}
+		
+		while(!s.empty())
+			System.out.print(s.pop());
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-				
+		
+		String s = in.next();
+		infixToPostfix(s);
+		
 //		MyStack s1 = new MyStack();
 //		
 //		s1.push(5);
@@ -159,12 +209,12 @@ public class Main {
 //		String s1 = in.next();
 //		System.out.println(zagrade(s1));
 		
-		int[] arr = new int[in.nextInt()];
-		ucitajNiz(arr);
+//		int[] arr = new int[in.nextInt()];
+//		ucitajNiz(arr);
 //		int[] veci = prviVeci(arr);
 //		stampajNiz(veci);
 		
-		vozovi(arr);
+//		vozovi(arr);
 		
 		
 

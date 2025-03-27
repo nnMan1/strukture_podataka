@@ -137,6 +137,46 @@ public class Main {
 		}
 	}
 	
+	/*
+	 * 4. Napisati program koji unijeti aritmeticki izraz stampa u
+	 * postfiksnoj notaciji
+	 */
+	
+	public static int priority(char c) {
+		if(c == '*' || c == '/')
+			return 2;
+		if(c == '+' || c == '-')
+			return 1;
+		
+		return 0;
+	}
+	
+	public static void infixToPostfix(String expr) {
+		Stack<Character> s = new Stack<>();
+		
+		for(int i=0;i<expr.length();i++) {
+			char c = expr.charAt(i);
+			
+			if('0' <= c && c <= '9') 
+				System.out.print(c);
+			else if(c == '(') 
+				s.push(c);
+			else if(c == ')') {
+				while(s.peek() != '(')
+					System.out.print(" "+s.pop());
+				s.pop();
+			} else {
+				while(!s.empty() && priority(s.peek()) >= priority(c))
+					System.out.print(s.pop());
+				
+				s.push(c);
+				System.out.print(" ");
+			}
+		}
+		while(!s.empty())
+			System.out.print(s.pop());
+	}
+	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 //		MyStack s1 = new MyStack();
@@ -158,12 +198,14 @@ public class Main {
 //		String s = in.next();
 //		System.out.println(zagrade(s));
 		
-		int n = in.nextInt();
-		int[] arr = new int[n];
-		ucitajNiz(arr);
+//		int n = in.nextInt();
+//		int[] arr = new int[n];
+//		ucitajNiz(arr);
+//		
+//		vagoni(arr);
 		
-		vagoni(arr);
-		
+		String s = in.next();
+		infixToPostfix(s);
 		
 	}
 
