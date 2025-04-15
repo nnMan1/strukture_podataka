@@ -1,5 +1,5 @@
 # Strukture podataka
 
-## Rezultati kolokvijuma
+## Rezultati kolokvijuma D
 
-Rezultati kolokvijuma nalaze se u fajlu Rezultati.pdf. Pregeld radova će se obaviti u ponedeljak u 18:00h u kabinetu 137.
+Rezultati kolokvijuma za D smjer se nalaze u fajlu RezultatiD.xlsx. Pregeld radova će se obaviti u četvrtak 8:15h u kabinetu 137.
