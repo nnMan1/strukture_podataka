@@ -51,6 +51,15 @@ public class Main {
 		l1.stampajListu();
 		System.out.println();
 		
+		System.out.println("#####################");
+		
+		CiklicnaLista c1 = new CiklicnaLista();
+		c1.dodajNaKraj(5);
+		c1.dodajNaKraj(9);
+		c1.dodajNaKraj(8);
+		c1.stampajListu();
+		System.out.println();
+		
 	}
 
 }
