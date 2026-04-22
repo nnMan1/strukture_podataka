@@ -54,7 +54,6 @@ public class SurveyFactory {
 			result = result.substring(2, result.length()-1);
 			String[] result_words = result.split(":");
 			String party = result_words[0];
-			System.out.println(Arrays.toString(result_words));
 			double percentage = Double.parseDouble(result_words[1].strip());
 			
 			results.add(new Result(party, percentage));

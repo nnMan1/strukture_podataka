@@ -2,12 +2,13 @@ package rad_sa_fajlovima;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.time.temporal.ChronoUnit;
 
 public class Survey implements Comparable<Survey> {
 	private String name;
 	private LocalDate start_date;
 	private LocalDate end_date;
-	private Integer number_of_respondents;
+	private Integer number_respondents;
 	private String country;
 	private SurveyType type;
 	private double perc_undecided; 
@@ -31,20 +32,24 @@ public class Survey implements Comparable<Survey> {
 		this.name = name;
 		this.start_date = start_date;
 		this.end_date = end_date;
-		this.number_of_respondents = number_of_respondents;
+		this.number_respondents = number_of_respondents;
 		this.country = country;
 		this.type = type;
 		this.perc_undecided = perc_undecided;
 		this.results = results;
-//		this.rat_respond_per_day = rat_respond_per_day;
 	}
+	
+    public Double getRatioRespondentsPerDay() {
+        long days = ChronoUnit.DAYS.between(start_date, end_date) + 1;
+        return number_respondents / (double) days;
+    }
 
-	public int getNumber_of_respondents() {
-		return number_of_respondents;
+	public int getNumberRespondents() {
+		return number_respondents;
 	}
 
 	public void setNumber_of_respondents(int number_of_respondents) {
-		this.number_of_respondents = number_of_respondents;
+		this.number_respondents = number_of_respondents;
 	}
 
 	public double getPerc_undecided() {
@@ -63,7 +68,7 @@ public class Survey implements Comparable<Survey> {
 		return start_date;
 	}
 
-	public LocalDate getEnd_date() {
+	public LocalDate getEndDate() {
 		return end_date;
 	}
 
@@ -87,14 +92,14 @@ public class Survey implements Comparable<Survey> {
 		if(!start_date.equals(s.start_date)) return false;
 		if(!end_date.equals(s.end_date)) return false;
 		if(!name.equals(s.name)) return false;
-		if(number_of_respondents != s.number_of_respondents) return false;
+		if(number_respondents != s.number_respondents) return false;
 		return true;		
 	}
 
 	@Override
 	public String toString() {
 		return "Survey [name=" + name + ", start_date=" + start_date + ", end_date=" + end_date
-				+ ", number_of_respondents=" + number_of_respondents + ", country=" + country + ", type=" + type
+				+ ", number_of_respondents=" + number_respondents + ", country=" + country + ", type=" + type
 				+ ", perc_undecided=" + perc_undecided + ", results=" + results + ", rat_respond_per_day="
 				+ rat_respond_per_day + "]";
 	}
@@ -110,7 +115,7 @@ public class Survey implements Comparable<Survey> {
 		if(name.compareTo(o.name) != 0)
 			return name.compareTo(o.name);
 		
-		return number_of_respondents.compareTo(o.number_of_respondents);
+		return number_respondents.compareTo(o.number_respondents);
 	}
 	
 	

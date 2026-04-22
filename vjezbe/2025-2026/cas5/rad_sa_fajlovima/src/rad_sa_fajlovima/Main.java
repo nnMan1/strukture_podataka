@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -19,7 +20,9 @@ public class Main {
 		SurveyFactory sf = new SurveyFactory();
 		List<Survey> surveys = sf.fromCSV("electoral_surveys.csv");
 				
-		
+		SurveysStatistics stats = new SurveysStatistics(surveys.stream());
+		System.out.println(stats.getMostFrequentPartiesSorted(3).stream().collect(Collectors.joining(", ")));
+		stats.getSurpassRespondentsByCountry(3000);
 	}
 
 }
