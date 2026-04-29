@@ -46,11 +46,11 @@ public class Main {
 	 * najkraci moguci niz operacija koje nas dovode do rjesenja
 	 * */
 	
-	public static int posude(int n, int m, int k) {
+	public static int posude(int m, int n, int k) {
 		Queue<Stanje> q = new LinkedList<Stanje>();
 		q.add(new Stanje(0, 0));
 		
-		boolean[][] visited = new boolean[n][m];
+		boolean[][] visited = new boolean[m+1][n+1];
 		
 		while(true) {
 			
@@ -75,21 +75,37 @@ public class Main {
 				visited[x][n] = true;
 			}
 			
-			if(x + y <= n) 
+			if(x + y <= n) { 
 				if(!visited[0][x+y]) {
 					q.add(new Stanje(0, x + y));
 					visited[0][x+y] = true;
 				}
-			else
-				q.add(new Stanje(x - (n - y), n));
+			} else
+				if(!visited[x - (n - y)][n]) {
+					q.add(new Stanje(x - (n - y), n));
+					visited[x - (n - y)][n] = true;
+				}
 			
-			if(x + y <= m)
-				q.add(new Stanje(x + y, 0));
-			else
-				q.add(new Stanje(m, y - (m - x)));
+			if(x + y <= m) {
+				if(!visited[x + y][0]) {
+					q.add(new Stanje(x + y, 0));
+					visited[x + y][0] = true;
+				}
+			} else
+				if(!visited[m][y - (m - x)]) {
+					q.add(new Stanje(m, y - (m - x)));
+					visited[m][y - (m - x)] = true;
+				}
 			
-			q.add(new Stanje(0, y));
-			q.add(new Stanje(x, 0));
+			if(!visited[0][y]) {
+				q.add(new Stanje(0, y));
+				visited[0][y] = true;
+			}
+			
+			if(!visited[x][0]) {
+				q.add(new Stanje(x, 0));
+				visited[x][0] = true;
+			}
 		}
 		
 		System.out.println("ne pos rjesenje");
