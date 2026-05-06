@@ -2,6 +2,7 @@ package queue;
 
 import java.util.Queue;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Main {
 	
@@ -44,13 +45,15 @@ public class Main {
 	 * stampa operacije presipanja vode koje treba izvrsiti da bi se 
 	 * imjerilo tacno k litara. Potrebno je stampati 
 	 * najkraci moguci niz operacija koje nas dovode do rjesenja
+	 * BFS-algoritam
 	 * */
 	
 	public static int posude(int m, int n, int k) {
 		Queue<Stanje> q = new LinkedList<Stanje>();
-		q.add(new Stanje(0, 0));
-		
+		q.add(new Stanje(0, 0, null));
+				
 		boolean[][] visited = new boolean[m+1][n+1];
+		visited[0][0] = true;
 		
 		while(true) {
 			
@@ -62,48 +65,60 @@ public class Main {
 			
 			if(s.prva == k || s.druga == k) { 
 				System.out.println("Stigli smo do rjesenja");
+				List<Stanje> put = new LinkedList<>();
+				
+				while(s != null) {
+					put.add(s);
+					s = s.prethodno;
+				}
+				
+				put = put.reversed();
+				
+				for(Stanje i: put) {
+					System.out.println(i.prva + " " + i.druga);
+				}
 				return 0;
 			}
 			
 			if(!visited[m][y]) {
-				q.add(new Stanje(m, y));
+				q.add(new Stanje(m, y, s));
 				visited[m][y] = true;
 			}
 			
 			if(!visited[x][n]) {
-				q.add(new Stanje(x, n));
+				q.add(new Stanje(x, n, s));
 				visited[x][n] = true;
 			}
 			
 			if(x + y <= n) { 
 				if(!visited[0][x+y]) {
-					q.add(new Stanje(0, x + y));
+					q.add(new Stanje(0, x + y, s));
 					visited[0][x+y] = true;
 				}
 			} else
 				if(!visited[x - (n - y)][n]) {
-					q.add(new Stanje(x - (n - y), n));
+					q.add(new Stanje(x - (n - y), n, s));
 					visited[x - (n - y)][n] = true;
 				}
 			
 			if(x + y <= m) {
 				if(!visited[x + y][0]) {
-					q.add(new Stanje(x + y, 0));
+					q.add(new Stanje(x + y, 0, s));
 					visited[x + y][0] = true;
 				}
 			} else
 				if(!visited[m][y - (m - x)]) {
-					q.add(new Stanje(m, y - (m - x)));
+					q.add(new Stanje(m, y - (m - x), s));
 					visited[m][y - (m - x)] = true;
 				}
 			
 			if(!visited[0][y]) {
-				q.add(new Stanje(0, y));
+				q.add(new Stanje(0, y, s));
 				visited[0][y] = true;
 			}
 			
 			if(!visited[x][0]) {
-				q.add(new Stanje(x, 0));
+				q.add(new Stanje(x, 0, s));
 				visited[x][0] = true;
 			}
 		}
@@ -113,6 +128,7 @@ public class Main {
 		
 	}
 	
+		
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub

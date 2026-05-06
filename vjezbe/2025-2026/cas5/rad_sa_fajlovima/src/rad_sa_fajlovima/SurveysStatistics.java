@@ -17,12 +17,14 @@ public class SurveysStatistics {
     }
 
     public Double getMeanNumRespondentsSurveyConsultantandDate(String consultant, LocalDate dateMax) {
-        return surveys.stream()
-                .filter(s -> s.getName().equals(consultant))
-                .filter(s -> s.getEndDate().isBefore(dateMax))
-                .mapToInt(Survey::getNumberRespondents)
-                .average()
-                .orElse(0.0);
+    	
+    	return surveys.stream()
+    		   .filter(s -> s.getName().equals(consultant))
+    		   .filter(s -> s.getEndDate().isBefore(dateMax))
+    		   .mapToInt(s -> s.getNumberRespondents())
+    		   .average()
+    		   .orElse(0.0);
+    
     }
 
     public Survey getSurveyMostRespondentsPerDay(SurveyType type) {
