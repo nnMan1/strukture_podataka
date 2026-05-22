@@ -1,0 +1,145 @@
+\documentclass[11pt,a4paper]{article}
+
+% --- Jezik i kodiranje ---
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[serbian]{babel}
+
+% --- Layout i paketi ---
+\usepackage[a4paper,top=1.5cm,bottom=1.8cm,left=1.8cm,right=1.8cm,headheight=28pt,headsep=10pt]{geometry}
+\usepackage{xcolor}
+\usepackage{listings}
+\usepackage{fancyhdr}
+\usepackage{lastpage}
+\usepackage{enumitem}
+
+% =========================================================
+% Podaci o ispitu -- uredite po potrebi
+% =========================================================
+\newcommand{\univerzitet}{Univerzitet Crne Gore}
+\newcommand{\fakultet}{Prirodno-matematički fakultet}
+\newcommand{\studProgram}{Računarske nauke}
+\newcommand{\predmet}{Strukture podataka}
+\newcommand{\datumIspita}{20. maj 2026.}
+\newcommand{\tipIspita}{Kolokvijum}
+\newcommand{\trajanje}{80 minuta}
+\newcommand{\ukupnoPoena}{20}
+
+% =========================================================
+% Stil za Java listinge
+% =========================================================
+\definecolor{javaKeyword}{RGB}{0,0,180}
+\definecolor{javaString}{RGB}{0,128,0}
+\definecolor{javaComment}{RGB}{120,120,120}
+\definecolor{codeBg}{RGB}{248,248,248}
+\definecolor{lineNum}{RGB}{140,140,140}
+
+\lstdefinestyle{java}{
+    language=Java,
+    basicstyle=\ttfamily\small,
+    keywordstyle=\color{javaKeyword}\bfseries,
+    stringstyle=\color{javaString},
+    commentstyle=\color{javaComment}\itshape,
+    backgroundcolor=\color{codeBg},
+    frame=single,
+    rulecolor=\color{black!20},
+    showstringspaces=false,
+    tabsize=4,
+    breaklines=true,
+    captionpos=b,
+    numbers=left,
+    numberstyle=\tiny\color{lineNum},
+    extendedchars=true,
+    inputencoding=utf8,
+    literate=%
+        {č}{{\v{c}}}1 {ć}{{\'{c}}}1 {š}{{\v{s}}}1 {ž}{{\v{z}}}1 {đ}{{\dj}}1
+        {Č}{{\v{C}}}1 {Ć}{{\'{C}}}1 {Š}{{\v{S}}}1 {Ž}{{\v{Z}}}1 {Đ}{{\DJ}}1,
+}
+\lstset{style=java}
+
+% =========================================================
+% Okruženje zadatak[poena] -- omogućava lstlisting unutra
+% =========================================================
+\newcounter{zadatak}
+\newenvironment{zadatak}[1][]{%
+    \par\vspace{0.9em}%
+    \refstepcounter{zadatak}%
+    \noindent\textbf{Zadatak \thezadatak.}%
+    \def\tempPoena{#1}%
+    \ifx\tempPoena\empty\else\ \textit{(#1 poena)}\fi%
+    \par\medskip\noindent\ignorespaces%
+}{\par}
+
+% =========================================================
+% Zaglavlje i podnožje
+% =========================================================
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\univerzitet, \small\fakultet}
+\fancyhead[R]{\small\predmet\ -- \tipIspita\\\small\datumIspita}
+\fancyfoot[C]{\thepage\ / \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+% Stil za prvu stranicu -- isto zaglavlje kao na ostalim
+\fancypagestyle{prva}{%
+    \fancyhf{}%
+    \fancyhead[L]{\small\univerzitet, \small\fakultet}%
+    \fancyhead[R]{\studProgram}
+    
+    \fancyfoot[C]{\thepage\ / \pageref{LastPage}}%
+    \fancyfoot[R]{\small\datumIspita}
+
+    \renewcommand{\headrulewidth}{0.4pt}%
+}
+
+\begin{document}
+
+\thispagestyle{prva}
+
+\begin{center}
+    {\Large\bfseries \predmet\  - \tipIspita}\\[0.2em]
+    {\small Trajanje: \trajanje\ \quad$\bullet$\quad Ukupno: \ukupnoPoena\ poena}
+\end{center}
+
+\vspace{0.3em}
+\noindent\textbf{Ime i prezime:}~\dotfill \qquad \textbf{Broj indeksa:}~\dotfill
+
+\vspace{0.3em}
+\hrule
+\vspace{0.4em}
+
+\noindent\textit{Uputstvo: Pažljivo pročitajte sve zadatke prije nego što počnete sa radom. Predajte izvorne fajlove pod imenima \texttt{Zadatak1.java}, \texttt{Zadatak2.java}, \ldots\ Dozvoljeno je korišćenje standardne Java biblioteke. Nije dozvoljeno korišćenje interneta niti komunikacija sa drugim kandidatima.}
+
+\vspace{0.6em}
+
+% =========================================================
+% Zadaci -- uredite/dodajte po potrebi
+% =========================================================
+
+\begin{zadatak}[12]
+Implementirati klasu \texttt{BST}, koja predstavlja binarno stablo traženja. U stablu se čuvaju cijeli brojevi. Potrebno je implementirati sljedeće metode:
+\begin{enumerate}[label=(\alph*),leftmargin=2em,itemsep=0pt]
+    \item (2 poena) dodavanje elementa u stablo,
+    \item (2 poena) uklanjanje elementa iz stabla,
+    \item (2 poena) štampanje čvorova stabla u inorder poretku,
+    \item (4 poena) metodu \texttt{void nodeBalance()} koja za svaki čvor stabla štampa razliku dubine njegovog lijevog i desnog podstabla. Neophodno je voditi računa o optimalnosti algoritma koji nalazi disbalans. Za maksimalan broj bodova potrebno je implementirati algoritam složenosti $O(n)$,
+    \item (2 poena) testirati napisane metode u \texttt{main} metodu.
+\end{enumerate}
+\end{zadatak}
+
+\begin{zadatak}[8]
+Implementirati klasu \texttt{DoubleStack}, koja predstavlja dva stacka pomoću jednog niza. Potrebno je omogućiti dodavanje elemenata u bilo koji od stackova sve dok se ne popuni niz. Implementirati sljedeće operacije:
+\begin{enumerate}[label=(\alph*),leftmargin=2em,itemsep=0pt]
+    \item (2 poena) \texttt{push(stack\_id, value)} -- dodaje element \texttt{value} na vrh stacka određenog parametrom \texttt{stack\_id},
+    \item (2 poena) \texttt{pop(stack\_id)} -- uklanja i vraća element sa vrha stacka određenog parametrom \texttt{stack\_id},
+    \item (2 poena) \texttt{peek(stack\_id)} -- vraća element sa vrha stacka određenog parametrom \texttt{stack\_id} bez njegovog uklanjanja,
+    \item (2 poena) testirati napisane metode u \texttt{main} metodu.
+\end{enumerate}
+Sve metode treba da budu implementirane sa složenošću $O(1)$.
+\end{zadatak}
+
+\vfill
+\noindent\rule{\linewidth}{0.4pt}\\[0.3em]
+\textit{Ukupno: \ukupnoPoena\ poena.\quad Srećno!}
+
+\end{document}
